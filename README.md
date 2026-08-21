@@ -1,32 +1,31 @@
-# React + TypeScript + Vite
+# GymTrack
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+App de seguimiento de entrenamientos: rutinas, biblioteca de ejercicios con fotos y video, entrenamiento en vivo con temporizador de descanso, progreso, historial y récords personales. Cuenta con login (email y Google), un cuestionario inicial que genera una rutina personalizada según tus días de entrenamiento, y funciona como PWA instalable.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React + TypeScript + Vite
+- Tailwind CSS
+- Supabase (auth + base de datos Postgres)
+- React Router
+- Recharts, @dnd-kit
 
-## React Compiler
+## Desarrollo local
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+cp .env.example .env   # completa con tus credenciales de Supabase
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+El esquema de base de datos necesario está en `supabase/schema.sql` — córrelo en el SQL Editor de tu proyecto de Supabase antes de usar la app.
+
+## Build
+
+```bash
+npm run build
+```
+
+## Despliegue
+
+Conectado a Vercel — cada push a `master` despliega automáticamente. Variables de entorno necesarias en el proyecto de Vercel: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`.
