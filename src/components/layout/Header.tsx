@@ -31,8 +31,8 @@ export function Header({ title, subtitle, showGreeting }: HeaderProps) {
           </>
         ) : (
           <>
-            <h1 className="text-xl font-bold text-text">{title}</h1>
-            {subtitle && <p className="text-sm text-text-muted mt-0.5">{subtitle}</p>}
+            <h1 className="font-display text-3xl leading-none text-text">{title}</h1>
+            {subtitle && <p className="text-sm text-text-muted mt-1.5">{subtitle}</p>}
           </>
         )}
       </div>

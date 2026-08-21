@@ -20,7 +20,7 @@ export function Profile() {
   return (
     <div className="px-4 lg:px-0 animate-fade-in pb-4">
       <div className="flex items-center justify-between mb-5">
-        <h1 className="text-xl font-bold text-text">Perfil</h1>
+        <h1 className="font-display text-3xl leading-none text-text">Perfil</h1>
         <button
           onClick={() => navigate('/ajustes')}
           className="p-2 rounded-xl bg-surface-2 border border-border text-text-muted hover:text-text"
@@ -47,23 +47,23 @@ export function Profile() {
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div className="bg-surface border border-border rounded-2xl p-4 flex flex-col gap-1.5">
           <DumbbellIcon size={16} className="text-primary" />
-          <span className="text-lg font-bold text-text">{totalWorkouts}</span>
-          <span className="text-xs text-text-muted">Entrenamientos</span>
+          <span className="font-display text-2xl leading-none text-text">{totalWorkouts}</span>
+          <span className="text-xs text-text-muted uppercase tracking-wide">Entrenamientos</span>
         </div>
         <div className="bg-surface border border-border rounded-2xl p-4 flex flex-col gap-1.5">
           <Flame size={16} className="text-primary" />
-          <span className="text-lg font-bold text-text">{formatVolume(totalVolume)}</span>
-          <span className="text-xs text-text-muted">Volumen total</span>
+          <span className="font-display text-2xl leading-none text-text">{formatVolume(totalVolume)}</span>
+          <span className="text-xs text-text-muted uppercase tracking-wide">Volumen total</span>
         </div>
         <div className="bg-surface border border-border rounded-2xl p-4 flex flex-col gap-1.5">
           <Trophy size={16} className="text-primary" />
-          <span className="text-lg font-bold text-text">{personalRecords.length}</span>
-          <span className="text-xs text-text-muted">Récords personales</span>
+          <span className="font-display text-2xl leading-none text-text">{personalRecords.length}</span>
+          <span className="text-xs text-text-muted uppercase tracking-wide">Récords personales</span>
         </div>
         <div className="bg-surface border border-border rounded-2xl p-4 flex flex-col gap-1.5">
           <Clock size={16} className="text-primary" />
-          <span className="text-lg font-bold text-text">{Math.round(totalMinutes / 60)}h</span>
-          <span className="text-xs text-text-muted">Tiempo entrenado</span>
+          <span className="font-display text-2xl leading-none text-text">{Math.round(totalMinutes / 60)}h</span>
+          <span className="text-xs text-text-muted uppercase tracking-wide">Tiempo entrenado</span>
         </div>
       </div>
 
@@ -75,7 +75,7 @@ export function Profile() {
           {personalRecords.map((pr) => (
             <div key={pr.exerciseId} className="flex items-center justify-between text-sm">
               <span className="text-text font-medium">{pr.exerciseName}</span>
-              <span className="text-text-muted">{pr.weight} kg</span>
+              <span className="font-display text-lg text-primary">{pr.weight} kg</span>
             </div>
           ))}
         </div>

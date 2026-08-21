@@ -219,8 +219,8 @@ export function ActiveWorkout() {
     <div className="px-4 lg:px-0 animate-fade-in pb-6">
       <div className="flex items-center justify-between mb-3">
         <div>
-          <h1 className="text-lg font-bold text-text">{routine.name}</h1>
-          <p className="text-xs text-text-muted">
+          <h1 className="font-display text-xl leading-none text-text">{routine.name}</h1>
+          <p className="text-xs text-primary font-bold uppercase tracking-wide mt-1.5">
             Ejercicio {exerciseIndex + 1} de {routine.exercises.length}
           </p>
         </div>
@@ -236,8 +236,8 @@ export function ActiveWorkout() {
 
       {currentExercise && (
         <>
-          <h2 className="text-xl font-bold text-text mb-1">{currentExercise.name}</h2>
-          <p className="text-sm text-text-muted mb-5">{currentExercise.muscleGroup}</p>
+          <h2 className="font-display text-3xl leading-none text-text mb-2">{currentExercise.name}</h2>
+          <p className="text-sm text-text-muted mb-5 uppercase tracking-wide">{currentExercise.muscleGroup}</p>
 
           {lastPerformance && (
             <div className="bg-surface-2 border border-border rounded-xl px-4 py-2.5 mb-4 inline-flex flex-col">

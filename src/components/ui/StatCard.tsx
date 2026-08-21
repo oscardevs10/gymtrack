@@ -17,8 +17,8 @@ export function StatCard({ icon, label, value, delta, className }: StatCardProps
         {delta && <span className="text-xs text-primary font-medium">{delta}</span>}
       </div>
       <div>
-        <div className="text-xl font-bold text-text tabular-nums">{value}</div>
-        <div className="text-xs text-text-muted mt-0.5">{label}</div>
+        <div className="font-display text-2xl leading-none text-text tabular-nums">{value}</div>
+        <div className="text-xs text-text-muted mt-1.5 uppercase tracking-wide">{label}</div>
       </div>
     </div>
   );

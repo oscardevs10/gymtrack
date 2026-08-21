@@ -50,11 +50,12 @@ export function Dashboard() {
       <Header showGreeting subtitle="¿Listo para entrenar hoy?" />
 
       {todayRoutine ? (
-        <Card className="mb-4 relative overflow-hidden bg-gradient-to-br from-surface-2 to-surface">
+        <Card className="mb-4 relative overflow-hidden bg-gradient-to-br from-surface-2 to-surface border-primary/20">
+          <div className="stripe-accent" />
           <div className="relative z-10">
-            <span className="text-xs text-text-muted font-medium uppercase tracking-wide">Entrenamiento de hoy</span>
-            <h2 className="text-2xl font-bold text-text mt-1">{todayRoutine.name}</h2>
-            <p className="text-sm text-text-muted mt-1">
+            <span className="text-xs text-primary font-bold uppercase tracking-[0.15em]">Entrenamiento de hoy</span>
+            <h2 className="font-display text-4xl leading-none text-text mt-2">{todayRoutine.name}</h2>
+            <p className="text-sm text-text-muted mt-2">
               {todayRoutine.exercises.length} ejercicios · {estimateRoutineDuration(todayRoutine)} min aprox.
             </p>
             <Button
@@ -136,8 +137,8 @@ export function Dashboard() {
             </div>
             {lastWorkout.newPRs > 0 && (
               <div className="text-right">
-                <div className="text-primary font-bold text-lg">{lastWorkout.newPRs}</div>
-                <div className="text-[10px] text-text-muted">PR</div>
+                <div className="font-display text-2xl leading-none text-primary">{lastWorkout.newPRs}</div>
+                <div className="text-[10px] text-text-muted uppercase tracking-wide mt-1">PR</div>
               </div>
             )}
           </button>

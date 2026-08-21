@@ -19,29 +19,29 @@ export function WorkoutSummary({ routineName, durationMinutes, totalVolume, exer
       <div className="w-16 h-16 rounded-full bg-primary-bg flex items-center justify-center mb-4 animate-pop">
         <PartyPopper size={30} className="text-primary" />
       </div>
-      <h1 className="text-2xl font-bold text-text">¡Entrenamiento completado!</h1>
+      <h1 className="font-display text-3xl text-text">¡Entrenamiento completado!</h1>
       <p className="text-text-muted mt-1">{routineName}</p>
 
       <div className="grid grid-cols-2 gap-3 w-full max-w-sm mt-8">
         <div className="bg-surface border border-border rounded-2xl p-4 flex flex-col items-center gap-1.5">
           <Clock size={18} className="text-primary" />
-          <span className="text-xl font-bold text-text">{durationMinutes} min</span>
-          <span className="text-xs text-text-muted">Duración</span>
+          <span className="font-display text-2xl leading-none text-text">{durationMinutes} min</span>
+          <span className="text-xs text-text-muted uppercase tracking-wide">Duración</span>
         </div>
         <div className="bg-surface border border-border rounded-2xl p-4 flex flex-col items-center gap-1.5">
           <DumbbellIcon size={18} className="text-primary" />
-          <span className="text-xl font-bold text-text">{formatVolume(totalVolume)}</span>
-          <span className="text-xs text-text-muted">Volumen total</span>
+          <span className="font-display text-2xl leading-none text-text">{formatVolume(totalVolume)}</span>
+          <span className="text-xs text-text-muted uppercase tracking-wide">Volumen total</span>
         </div>
         <div className="bg-surface border border-border rounded-2xl p-4 flex flex-col items-center gap-1.5">
           <ListChecks size={18} className="text-primary" />
-          <span className="text-xl font-bold text-text">{exerciseCount}</span>
-          <span className="text-xs text-text-muted">Ejercicios</span>
+          <span className="font-display text-2xl leading-none text-text">{exerciseCount}</span>
+          <span className="text-xs text-text-muted uppercase tracking-wide">Ejercicios</span>
         </div>
         <div className="bg-surface border border-border rounded-2xl p-4 flex flex-col items-center gap-1.5">
           <Trophy size={18} className="text-primary" />
-          <span className="text-xl font-bold text-text">{newPRs}</span>
-          <span className="text-xs text-text-muted">PR nuevo{newPRs !== 1 ? 's' : ''}</span>
+          <span className="font-display text-2xl leading-none text-text">{newPRs}</span>
+          <span className="text-xs text-text-muted uppercase tracking-wide">PR nuevo{newPRs !== 1 ? 's' : ''}</span>
         </div>
       </div>
 

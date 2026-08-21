@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Anton', 'Inter', system-ui, sans-serif;
 
   --color-bg: #0a0a0d;
   --color-surface: #15151a;
@@ -40,6 +42,10 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image:
+    radial-gradient(circle at 0% 0%, rgba(198, 241, 53, 0.05), transparent 35%),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.012) 0px, rgba(255, 255, 255, 0.012) 1px, transparent 1px, transparent 5px);
+  background-attachment: fixed;
 }
 
 * {
@@ -64,6 +70,30 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Tipografía "cartel deportivo": condensada, mayúsculas, tracking amplio.
+   Usada para títulos de página, números de stats y marca. */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Acento diagonal tipo bandera de carreras — para esquinas de tarjetas hero. */
+.stripe-accent {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(198, 241, 53, 0.06) 0px,
+    rgba(198, 241, 53, 0.06) 3px,
+    transparent 3px,
+    transparent 14px
+  );
+  mask-image: linear-gradient(to left, black, transparent 60%);
 }
 
 @keyframes fade-in {

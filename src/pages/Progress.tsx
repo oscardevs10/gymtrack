@@ -91,7 +91,7 @@ export function Progress() {
               <div key={pr.exerciseId} className="flex items-center justify-between">
                 <span className="text-sm text-text font-medium">{pr.exerciseName}</span>
                 <div className="text-right">
-                  <span className="text-sm font-bold text-text">{pr.weight} kg</span>
+                  <span className="font-display text-lg text-text">{pr.weight} kg</span>
                   {pr.previousWeight !== undefined && (
                     <span className="text-xs text-primary ml-2">+{pr.weight - pr.previousWeight} kg</span>
                   )}

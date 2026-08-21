@@ -64,10 +64,10 @@ export function RestTimer({ seconds, onFinish, onSkip, onAddTime }: RestTimerPro
           />
         </svg>
         <div className="absolute flex flex-col items-center">
-          <span className="text-5xl font-bold text-text tabular-nums">
+          <span className="font-display text-6xl text-text tabular-nums">
             {mm}:{ss}
           </span>
-          <span className="text-xs text-text-muted tracking-widest uppercase mt-1">
+          <span className="text-xs text-text-muted tracking-[0.2em] uppercase mt-2 font-semibold">
             {remaining <= 0 ? 'Listo' : 'Descansando'}
           </span>
         </div>

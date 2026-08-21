@@ -37,7 +37,7 @@ export function SetRow({ set, onChangeWeight, onChangeReps, onComplete, isNext }
             value={set.weight}
             onChange={(e) => onChangeWeight(Number(e.target.value))}
             disabled={set.completed}
-            className="w-full bg-transparent text-text font-semibold text-lg outline-none disabled:opacity-70"
+            className="w-full bg-transparent text-text font-display normal-case text-2xl leading-none outline-none disabled:opacity-70"
           />
         </div>
         <div className="flex-1">
@@ -47,7 +47,7 @@ export function SetRow({ set, onChangeWeight, onChangeReps, onComplete, isNext }
             value={set.reps}
             onChange={(e) => onChangeReps(Number(e.target.value))}
             disabled={set.completed}
-            className="w-full bg-transparent text-text font-semibold text-lg outline-none disabled:opacity-70"
+            className="w-full bg-transparent text-text font-display normal-case text-2xl leading-none outline-none disabled:opacity-70"
           />
         </div>
       </div>

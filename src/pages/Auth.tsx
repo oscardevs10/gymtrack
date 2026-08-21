@@ -73,7 +73,7 @@ export function Auth() {
           <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center mb-3">
             <Dumbbell size={24} className="text-black" />
           </div>
-          <h1 className="text-2xl font-bold text-text tracking-tight">GYMTRACK</h1>
+          <h1 className="font-display text-4xl text-text">GYMTRACK</h1>
           <p className="text-sm text-text-muted mt-1">Tu progreso, en un solo lugar.</p>
         </div>
 

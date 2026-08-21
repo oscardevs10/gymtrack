@@ -34,7 +34,7 @@ export function Sidebar() {
         <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
           <Dumbbell size={18} className="text-black" />
         </div>
-        <span className="font-bold text-lg tracking-tight text-text">GYMTRACK</span>
+        <span className="font-display text-xl tracking-wide text-text">GYMTRACK</span>
       </div>
 
       <nav className="flex-1 flex flex-col gap-1">
