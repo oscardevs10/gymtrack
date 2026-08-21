@@ -151,18 +151,24 @@ export async function fetchRoutines(userId: string): Promise<Routine[]> {
 }
 
 export async function insertRoutine(userId: string, routine: Routine, sortOrder = 0): Promise<Routine> {
+  // upsert (no plain insert): si esta mutación ya se aplicó en un intento
+  // anterior de la cola offline pero la respuesta se perdió, un insert
+  // volvería a fallar por clave duplicada y trabaría la cola para siempre.
   const { data, error } = await supabase
     .from('routines')
-    .insert({
-      id: routine.id,
-      user_id: userId,
-      name: routine.name,
-      muscle_groups: routine.muscleGroups,
-      exercises: routine.exercises,
-      last_performed: routine.lastPerformed ?? null,
-      is_template: false,
-      sort_order: sortOrder,
-    })
+    .upsert(
+      {
+        id: routine.id,
+        user_id: userId,
+        name: routine.name,
+        muscle_groups: routine.muscleGroups,
+        exercises: routine.exercises,
+        last_performed: routine.lastPerformed ?? null,
+        is_template: false,
+        sort_order: sortOrder,
+      },
+      { onConflict: 'id' }
+    )
     .select()
     .single();
   if (error) throw error;
@@ -180,7 +186,7 @@ export async function insertRoutines(userId: string, routines: Routine[]): Promi
     is_template: false,
     sort_order: i,
   }));
-  const { error } = await supabase.from('routines').insert(rows);
+  const { error } = await supabase.from('routines').upsert(rows, { onConflict: 'id' });
   if (error) throw error;
 }
 
@@ -211,7 +217,9 @@ export async function fetchFavorites(userId: string): Promise<string[]> {
 }
 
 export async function addFavoriteRow(userId: string, exerciseId: string): Promise<void> {
-  const { error } = await supabase.from('favorites').insert({ user_id: userId, exercise_id: exerciseId });
+  const { error } = await supabase
+    .from('favorites')
+    .upsert({ user_id: userId, exercise_id: exerciseId }, { onConflict: 'user_id,exercise_id' });
   if (error) throw error;
 }
 
@@ -237,17 +245,20 @@ export async function fetchHistory(userId: string): Promise<WorkoutSession[]> {
 }
 
 export async function insertHistoryRow(userId: string, session: WorkoutSession): Promise<void> {
-  const { error } = await supabase.from('workout_history').insert({
-    id: session.id,
-    user_id: userId,
-    routine_id: session.routineId,
-    routine_name: session.routineName,
-    date: session.date,
-    duration_minutes: session.durationMinutes,
-    total_volume: session.totalVolume,
-    exercises: session.exercises,
-    new_prs: session.newPRs,
-  });
+  const { error } = await supabase.from('workout_history').upsert(
+    {
+      id: session.id,
+      user_id: userId,
+      routine_id: session.routineId,
+      routine_name: session.routineName,
+      date: session.date,
+      duration_minutes: session.durationMinutes,
+      total_volume: session.totalVolume,
+      exercises: session.exercises,
+      new_prs: session.newPRs,
+    },
+    { onConflict: 'id' }
+  );
   if (error) throw error;
 }
 

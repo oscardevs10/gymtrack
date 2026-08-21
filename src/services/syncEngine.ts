@@ -36,13 +36,27 @@ async function runMutation(m: QueuedMutation): Promise<void> {
   }
 }
 
+/**
+ * Supabase/PostgREST responde los rechazos de la API (RLS, restricciones,
+ * datos inválidos) como un error estructurado con `code`/`message` — eso
+ * SÍ llegó al servidor y reintentarlo no lo va a arreglar nunca solo. Un
+ * corte de red real, en cambio, lanza un TypeError plano ("Failed to
+ * fetch") sin esa forma, y ese sí vale la pena reintentar indefinidamente.
+ */
+function isPermanentError(error: unknown): boolean {
+  return !!error && typeof error === 'object' && ('code' in error || 'status' in error);
+}
+
+const MAX_ATTEMPTS = 20;
+
 let flushing = false;
 
 /**
- * Procesa la cola de mutaciones pendientes en orden. Se detiene en el primer
- * fallo (normalmente falta de conexión) para no descartar el orden ni hacer
- * spam de reintentos — el próximo trigger (reconexión, intervalo, nueva
- * mutación) lo vuelve a intentar desde ahí.
+ * Procesa la cola de mutaciones pendientes en orden. Ante un fallo de red
+ * se detiene (el próximo trigger — reconexión, intervalo, nueva mutación —
+ * reintenta desde ahí). Ante un fallo permanente de la propia mutación (o
+ * tras demasiados intentos) la descarta y sigue con las demás, para que un
+ * solo dato problemático no trabe la sincronización para siempre.
  */
 export async function flushQueue(userId: string, onProgress?: (pendingCount: number) => void): Promise<void> {
   if (flushing) return;
@@ -59,7 +73,12 @@ export async function flushQueue(userId: string, onProgress?: (pendingCount: num
       try {
         await runMutation(mutation);
         removeMutation(mutation.id);
-      } catch {
+      } catch (error) {
+        if (isPermanentError(error) || mutation.attempts + 1 >= MAX_ATTEMPTS) {
+          console.warn('Descartando mutación pendiente tras fallo permanente:', mutation, error);
+          removeMutation(mutation.id);
+          continue;
+        }
         bumpAttempts(mutation.id);
         break; // probablemente sin conexión — el próximo trigger reintenta
       }
