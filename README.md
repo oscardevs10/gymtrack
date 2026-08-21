@@ -1,5 +1,7 @@
 # GymTrack
 
+**App en vivo:** [gymtrack-vert.vercel.app](https://gymtrack-vert.vercel.app)
+
 App de seguimiento de entrenamientos: rutinas, biblioteca de ejercicios con fotos y video, entrenamiento en vivo con temporizador de descanso, progreso, historial y récords personales. Cuenta con login (email y Google), un cuestionario inicial que genera una rutina personalizada según tus días de entrenamiento, y funciona como PWA instalable.
 
 ## Stack
