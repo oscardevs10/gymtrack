@@ -79,6 +79,20 @@ const BODYWEIGHT_FRACTION: Record<string, number> = {
   'peso-muerto-sumo': 1.1,
   'curl-concentrado': 0.15,
   'patada-triceps': 0.06,
+  'press-pecho-maquina': 0.55,
+  'pec-deck': 0.3,
+  'cruce-poleas': 0.1,
+  'press-hombro-maquina': 0.35,
+  'pajaros-maquina': 0.15,
+  'curl-biceps-maquina': 0.2,
+  'curl-scott-maquina': 0.2,
+  'extension-triceps-maquina': 0.25,
+  'fondos-asistidos-maquina': 0,
+  'remo-alto-maquina': 0.5,
+  'hip-thrust-maquina': 0.9,
+  'hack-squat': 1.0,
+  'sentadilla-smith': 0.75,
+  'abdominales-maquina': 0.2,
 };
 
 function estimateWeight(exercise: Exercise, weightKg: number, level: Difficulty): number {
