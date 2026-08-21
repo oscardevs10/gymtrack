@@ -67,6 +67,18 @@ const BODYWEIGHT_FRACTION: Record<string, number> = {
   'bicicleta-estatica': 0,
   burpees: 0,
   'cuerda-saltar': 0,
+  encogimientos: 0.5,
+  'face-pull': 0.1,
+  'curl-muneca': 0.15,
+  'curl-inverso': 0.15,
+  aductores: 0.3,
+  abductores: 0.3,
+  hiperextensiones: 0,
+  'calf-sentado': 0.4,
+  'elevacion-piernas-colgado': 0,
+  'peso-muerto-sumo': 1.1,
+  'curl-concentrado': 0.15,
+  'patada-triceps': 0.06,
 };
 
 function estimateWeight(exercise: Exercise, weightKg: number, level: Difficulty): number {
@@ -125,21 +137,47 @@ function splitForDays(daysPerWeek: number): DayPlan[] {
   }
 }
 
+/**
+ * Elige `count` ejercicios repartidos entre los distintos músculos
+ * primarios disponibles (no solo entre grupos musculares grandes como
+ * "Piernas"), para que un día de pierna no termine siendo tres variantes
+ * de cuádriceps y ningún isquiotibial, por ejemplo. Reparte por rondas:
+ * primero un ejercicio de cada músculo primario distinto, y solo repite
+ * un músculo si hace falta llenar el cupo.
+ */
 function pickExercises(muscleGroups: MuscleGroup[], count: number, usedRecently: Set<string>): Exercise[] {
   const pool = exercises.filter((ex) => muscleGroups.includes(ex.muscleGroup));
-  const fresh = pool.filter((ex) => !usedRecently.has(ex.id));
-  const ordered = [...fresh, ...pool.filter((ex) => usedRecently.has(ex.id))];
 
-  const perGroup = new Map<string, number>();
-  const picked: Exercise[] = [];
-  for (const ex of ordered) {
-    if (picked.length >= count) break;
-    const n = perGroup.get(ex.muscleGroup) ?? 0;
-    const maxPerGroup = Math.ceil(count / muscleGroups.length) + 1;
-    if (n >= maxPerGroup) continue;
-    picked.push(ex);
-    perGroup.set(ex.muscleGroup, n + 1);
+  const buckets = new Map<string, Exercise[]>();
+  for (const ex of pool) {
+    const list = buckets.get(ex.primaryMuscle) ?? [];
+    list.push(ex);
+    buckets.set(ex.primaryMuscle, list);
   }
+  // Dentro de cada músculo, prioriza los que no se usaron ya esta semana.
+  for (const list of buckets.values()) {
+    list.sort((a, b) => Number(usedRecently.has(a.id)) - Number(usedRecently.has(b.id)));
+  }
+
+  const bucketKeys = Array.from(buckets.keys());
+  const pointer = new Map(bucketKeys.map((k) => [k, 0]));
+  const picked: Exercise[] = [];
+
+  while (picked.length < count) {
+    let addedThisRound = false;
+    for (const key of bucketKeys) {
+      if (picked.length >= count) break;
+      const list = buckets.get(key)!;
+      const idx = pointer.get(key)!;
+      if (idx < list.length) {
+        picked.push(list[idx]);
+        pointer.set(key, idx + 1);
+        addedThisRound = true;
+      }
+    }
+    if (!addedThisRound) break; // ya no quedan ejercicios en ningún músculo del grupo
+  }
+
   return picked;
 }
 
